@@ -8,10 +8,12 @@ def get_files_info(working_directory, directory="."):
         return f'Error: Cannot list"{directory}" as it is outside the permitted working directory'
     if not isdir(file_path):
         return f'Error: "{directory}" is not a directory'
-    out_str = ''
-    
-    for file in listdir(file_path):
-        out_str += f"- {file}: file_size= {getsize(join(file_path,file))} bytes, is_dir={isdir(join(file_path,file))}\n"
-    
-    return out_str
-    
+    try:
+        out_str = ''
+        
+        for file in listdir(file_path):
+            out_str += f"- {file}: file_size= {getsize(join(file_path,file))} bytes, is_dir={isdir(join(file_path,file))}\n"
+        
+        return out_str
+    except Exception as e:
+        return f"Error: listing files {e}"
